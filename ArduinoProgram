@@ -1,0 +1,98 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(A0, A1, A2, A3, A4, A5);
+#include<Servo.h>
+int buz1=8;
+int buz2=9;
+Servo mot;
+int led1=3;
+int led2=4;
+int led3=5;
+int led4=6;
+int led5=10;
+int led6=11;
+int led7=12;
+int led8=13;
+int pos=0;
+void gate()
+{
+for (pos = 0; pos <=90; pos += 1) { // goes from 0 degrees to 180 degrees
+// in steps of 1 degree
+mot.write(pos); // tell servo to go to position in variable 'pos'
+delay(15); // waits 15 ms for the servo to reach the position
+}
+// delay(5000);
+// for (pos = 90; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+// mot.write(pos); // tell servo to go to position in variable 'pos'
+// delay(15); // waits 15 ms for the servo to reach the position
+// }
+}
+void setup()
+{
+Serial.begin(9600);
+mot.attach(7);
+mot.write(0);
+pinMode(buz1,OUTPUT);
+pinMode(buz2,OUTPUT);
+pinMode(led1,OUTPUT);
+pinMode(led2,OUTPUT);
+pinMode(led3,OUTPUT);
+pinMode(led4,OUTPUT);
+pinMode(led5,OUTPUT);
+pinMode(led6,OUTPUT);
+pinMode(led7,OUTPUT);
+pinMode(led8,OUTPUT);
+lcd.begin(16,2);
+lcd.clear();
+lcd.print(" PROJECT");
+}
+void loop()
+{
+if(Serial.available())
+{
+int x=Serial.read();
+if(x=='1')
+{
+lcd.clear();
+lcd.print("Animal Detected");
+lcd.setCursor(0,1);
+lcd.print(" * Be Safe * ");
+gate();
+while(1)
+{
+digitalWrite(led1,1);
+digitalWrite(led2,1);
+digitalWrite(led3,1);
+digitalWrite(led4,1);
+digitalWrite(led5,1);
+digitalWrite(led6,1);
+digitalWrite(led7,1);
+digitalWrite(led8,1);
+digitalWrite(buz1,1);
+digitalWrite(buz2,1);
+delay(100);
+digitalWrite(led1,0);
+digitalWrite(led2,0);
+digitalWrite(led3,0);
+digitalWrite(led4,0);
+digitalWrite(led5,0);
+digitalWrite(led6,0);
+digitalWrite(led7,0);
+digitalWrite(led8,0);
+digitalWrite(buz1,0);
+digitalWrite(buz2,0);
+delay(100);
+digitalWrite(led1,1);
+digitalWrite(led2,1);
+digitalWrite(led3,1);
+digitalWrite(led4,1);
+digitalWrite(led5,1);
+digitalWrite(led6,1);
+digitalWrite(led7,1);
+digitalWrite(led8,1);
+digitalWrite(buz1,1);
+digitalWrite(buz2,1);
+delay(100);
+}
+}
+}
+}
